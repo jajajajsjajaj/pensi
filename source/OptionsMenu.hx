@@ -33,7 +33,7 @@ class OptionsMenu extends MusicBeatState
 		DiscordClient.changePresence("In the Options Menu", null);
 		#end
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('backgrounds/SUSSUS AMOGUS'));
-		controlsStrings = CoolUtil.coolStringFile((FlxG.save.data.dfjk ? 'DFJK' : 'WASD') + "\n" + (FlxG.save.data.newInput ? "Ghost Tapping" : "No Ghost Tapping") + "\n" + (FlxG.save.data.downscroll ? 'Downscroll' : 'Upscroll') + "\nAccuracy " + (FlxG.save.data.accuracyDisplay ? "off" : "on") + "\n" + (FlxG.save.data.eyesores ? 'Eyesores Enabled' : 'Eyesores Disabled') + "\n" + (FlxG.save.data.donoteclick ? "Hitsounds On" : "Hitsounds Off") + "\n" + (FlxG.save.data.freeplayCuts ? "Freeplay Cutscenes On" : "Freeplay Cutscenes Off"));
+		controlsStrings = CoolUtil.coolStringFile((FlxG.save.data.dfjk ? 'DFJK' : 'WASD') + "\n" + (FlxG.save.data.newInput ? "Ghost Tapping" : "No Ghost Tapping") + "\n" + (FlxG.save.data.downscroll ? 'Downscroll' : 'Upscroll') + "\nAccuracy " + (FlxG.save.data.accuracyDisplay ? "off" : "on") + "\n" + (FlxG.save.data.eyesores ? 'Eyesores Enabled' : 'Eyesores Disabled') + "\n" + (FlxG.save.data.donoteclick ? "Hitsounds On" : "Hitsounds Off") + "\n" + (FlxG.save.data.freeplayCuts ? "Freeplay Cutscenes On" : "Freeplay Cutscenes Off") + "\n" + "Custom Controls"  + "\n" + (FlxG.save.data.chrome ? "ChromaticAberration On" : "ChromaticAberration Off")  + "\n" + (FlxG.save.data.scanline ? "Scanline On" : "Scanline Off")  + "\n" + (FlxG.save.data.tiltshift ? "tiltShift On" : "tiltShift Off")  + "\n" + (FlxG.save.data.hq2x ? "hq2x On" : "hq2x Off"));
 		
 		trace(controlsStrings);
 
@@ -65,6 +65,10 @@ class OptionsMenu extends MusicBeatState
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 
+		#if mobileC
+		addVirtualPad(FULL, A_B);
+		#end
+
 		super.create();
 	}
 
@@ -72,6 +76,8 @@ class OptionsMenu extends MusicBeatState
 	{
 		super.update(elapsed);
 
+			/*if (_virtualpad.buttonX.justPressed)
+			    FlxG.switchState(new CustomControlsState());*/
 			if (controls.BACK)
 				FlxG.switchState(new MainMenuState());
 			if (controls.UP_P)
@@ -155,6 +161,46 @@ class OptionsMenu extends MusicBeatState
 						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.freeplayCuts ? "Freeplay Cutscenes On" : "Freeplay Cutscenes Off"), true, false);
 						ctrl.isMenuItem = true;
 						ctrl.targetY = curSelected - 6;
+						ctrl.screenCenter(X);
+						ctrl.itemType = 'Vertical';
+						grpControls.add(ctrl);
+					case 7:
+					    FlxG.switchState(new options.CustomControlsState());
+					    var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, "Custom Controls", true, false);
+						ctrl.isMenuItem = true;
+						ctrl.targetY = curSelected - 7;
+						ctrl.screenCenter(X);
+						ctrl.itemType = 'Vertical';
+						grpControls.add(ctrl);
+					case 8:
+					    FlxG.save.data.chrome = !FlxG.save.data.chrome;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.chrome ? "ChromaticAberration On" : "ChromaticAberration Off"), true, false);
+						ctrl.isMenuItem = true;
+						ctrl.targetY = curSelected - 8;
+						ctrl.screenCenter(X);
+						ctrl.itemType = 'Vertical';
+						grpControls.add(ctrl);
+					case 9:
+					    FlxG.save.data.scanline = !FlxG.save.data.scanline;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.scanline ? "Scanline On" : "Scanline Off"), true, false);
+						ctrl.isMenuItem = true;
+						ctrl.targetY = curSelected - 9;
+						ctrl.screenCenter(X);
+						ctrl.itemType = 'Vertical';
+						grpControls.add(ctrl);
+					case 10:
+					    FlxG.save.data.tiltshift = !FlxG.save.data.tiltshift;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.tiltshift ? "tiltShift On" : "tiltShift Off"), true, false);
+						ctrl.isMenuItem = true;
+						ctrl.targetY = curSelected - 10;
+						ctrl.screenCenter(X);
+						ctrl.itemType = 'Vertical';
+						grpControls.add(ctrl);
+					case 11:
+					    FlxG.save.data.hq2x = !FlxG.save.data.hq2x;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.hq2x ? "hq2x On" : "hq2x Off"), true, false);
+						ctrl.isMenuItem = true;
+						ctrl.targetY = curSelected - 11;
 						ctrl.screenCenter(X);
 						ctrl.itemType = 'Vertical';
 						grpControls.add(ctrl);

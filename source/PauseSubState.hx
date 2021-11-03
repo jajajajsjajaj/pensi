@@ -12,12 +12,13 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import flixel.FlxCamera;
 
 class PauseSubState extends MusicBeatSubstate
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['Resume', 'Restart Song', 'Exit to menu'];
+	var menuItems:Array<String> = ['Resume', 'Restart Song', 'Chart Editor', 'Exit to menu'];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
@@ -75,6 +76,15 @@ class PauseSubState extends MusicBeatSubstate
 		changeSelection();
 
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+
+		#if mobileC
+		addVirtualPad(UP_DOWN, A);
+		
+		var camcontrol = new FlxCamera();
+		FlxG.cameras.add(camcontrol);
+		camcontrol.bgColor.alpha = 0;
+		_virtualpad.cameras = [camcontrol];
+		#end
 	}
 
 	override function update(elapsed:Float)
@@ -107,6 +117,25 @@ class PauseSubState extends MusicBeatSubstate
 					close();
 				case "Restart Song":
 					FlxG.resetState();
+				case "Chart Editor":
+					switch (PlayState.SONG.song.toLowerCase())
+					{
+						case 'supernovae' | 'glitch':
+							PlayState.SONG = Song.loadFromJson("cheating", "cheating"); // you dun fucked up
+							FlxG.save.data.cheatingFound = true;
+							FlxG.switchState(new PlayState());
+							return;
+							// FlxG.switchState(new VideoState('assets/videos/fortnite/fortniteballs.webm', new CrasherState()));
+						case 'cheating':
+							PlayState.SONG = Song.loadFromJson("unfairness", "unfairness"); // you dun fucked up again
+							FlxG.save.data.unfairnessFound = true;
+							FlxG.switchState(new PlayState());
+							return;
+						case 'unfairness':
+							FlxG.switchState(new SusState());
+						default:
+							FlxG.switchState(new ChartingState());
+					}
 				case "Exit to menu":
 					PlayState.characteroverride = 'none';
 					PlayState.formoverride = 'none';

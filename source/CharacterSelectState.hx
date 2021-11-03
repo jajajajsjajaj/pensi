@@ -181,6 +181,9 @@ class CharacterSelectState extends MusicBeatState
 		add(tutorialThing);
 
 		
+		#if mobileC
+	    addVirtualPad(FULL, A_B);
+		#end
 	}
 
 	private function generateStaticArrows():Void
@@ -239,42 +242,11 @@ class CharacterSelectState extends MusicBeatState
 		super.update(elapsed);
 		//FlxG.camera.focusOn(FlxG.ce);
 
-		if (FlxG.keys.justPressed.ESCAPE)
+		if (controls.BACK)
 		{
 			LoadingState.loadAndSwitchState(new FreeplayState());
 		}
 
-		if(controls.LEFT_P && !PressedTheFunny)
-		{
-			if(!char.nativelyPlayable)
-			{
-				char.playAnim('singRIGHT', true);
-			}
-			else
-			{
-				char.playAnim('singLEFT', true);
-			}
-
-		}
-		if(controls.RIGHT_P && !PressedTheFunny)
-		{
-			if(!char.nativelyPlayable)
-			{
-				char.playAnim('singLEFT', true);
-			}
-			else
-			{
-				char.playAnim('singRIGHT', true);
-			}
-		}
-		if(controls.UP_P && !PressedTheFunny)
-		{
-			char.playAnim('singUP', true);
-		}
-		if(controls.DOWN_P && !PressedTheFunny)
-		{
-			char.playAnim('singDOWN', true);
-		}
 		if (controls.ACCEPT)
 		{
 			if (!FlxG.save.data.unlockedcharacters[currentReal])
@@ -298,7 +270,7 @@ class CharacterSelectState extends MusicBeatState
 			FlxG.sound.play(Paths.music('gameOverEnd'));
 			new FlxTimer().start(1.9, endIt);
 		}
-		if (FlxG.keys.justPressed.LEFT && !selectedCharacter)
+		if (controls.LEFT_P && !selectedCharacter)
 		{
 			//currentReal order should be 0, 1 (skipped anyways), 3, 4, 2, 5, 7, 6
 			curForm = 0;
@@ -330,7 +302,7 @@ class CharacterSelectState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 		}
 
-		if (FlxG.keys.justPressed.RIGHT && !selectedCharacter)
+		if (controls.RIGHT_P && !selectedCharacter)
 		{
 			//currentReal order should be 0, 1 (skipped anyways), 3, 4, 2, 5, 7, 6
 			curForm = 0;
@@ -361,7 +333,7 @@ class CharacterSelectState extends MusicBeatState
 			UpdateBF();
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 		}
-		if (FlxG.keys.justPressed.DOWN && !selectedCharacter)
+		if (controls.DOWN_P && !selectedCharacter)
 		{
 			curForm--;
 			if (curForm < 0)
@@ -372,7 +344,7 @@ class CharacterSelectState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 		}
 
-		if (FlxG.keys.justPressed.UP && !selectedCharacter)
+		if (controls.UP_P && !selectedCharacter)
 		{
 			curForm++;
 			if (curForm > characters[currentReal].names.length - 1)

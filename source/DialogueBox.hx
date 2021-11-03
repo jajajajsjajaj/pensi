@@ -300,7 +300,21 @@ class DialogueBox extends FlxSpriteGroup
 			dialogueStarted = true;
 		}
 
-		if (FlxG.keys.justPressed.ANY  && dialogueStarted)
+		#if mobile
+		var justTouched:Bool = false;
+
+		for (touch in FlxG.touches.list)
+		{
+			justTouched = false;
+			
+			if (touch.justReleased){
+				justTouched = true;
+			}
+		}
+		#end
+
+
+		if (FlxG.keys.justPressed.ANY #if mobile || justTouched #end && dialogueStarted)
 		{
 			remove(dialogue);
 			
@@ -421,16 +435,9 @@ class DialogueBox extends FlxSpriteGroup
 		switch (curMod)
 		{
 			case 'distort':
-				/*var shad:Shaders.PulseEffect = new Shaders.PulseEffect();
-				curshader = shad;
-				shad.waveAmplitude = 1;
-				shad.waveFrequency = 2;
-				shad.waveSpeed = 1;
-				shad.shader.uTime.value[0] = new flixel.math.FlxRandom().float(-100000,100000);
-				shad.shader.uampmul.value[0] = 1;*/
-				PlayState.screenshader.Enabled = true;
+				trace("that shader is broken on mobile :(");
 			case 'undistort':
-				PlayState.screenshader.Enabled = false;
+				trace("that shader is broken on mobile :(");
 			case 'distortbg':
 				var shad:Shaders.DistortBGEffect = new Shaders.DistortBGEffect();
 				curshader = shad;

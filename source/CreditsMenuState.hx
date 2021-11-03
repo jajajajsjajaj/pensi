@@ -94,8 +94,8 @@ class CreditsMenuState extends MusicBeatState
       ),
       new Person("T5mpler", CreditsType.Dev, "Programmer",
          [
-            new Social('youtube', 'https://www.youtube.com/channel/UCgNoOsE_NDjH6ac4umyADrw'),
-            new Social('twitter', 'https://twitter.com/RealT5mpler')
+	    new Social('youtube', 'https://www.youtube.com/channel/UCgNoOsE_NDjH6ac4umyADrw'),
+	    new Social('twitter', 'https://twitter.com/RealT5mpler')
          ]
       ),
        new Person("Cleary", CreditsType.Dev, "Original artist, Censored songs, Moral support",
@@ -275,6 +275,10 @@ class CreditsMenuState extends MusicBeatState
          var scaledY = FlxMath.remapToRange(creditsText.selectionId, 0, 1, 0, 1.3);
          creditsText.text.y = scaledY * 75 + (FlxG.height * 0.5);
       }
+      
+      #if mobileC
+      addVirtualPad(UP_DOWN, A_B);
+      #end     
 
 		super.create();
 	}

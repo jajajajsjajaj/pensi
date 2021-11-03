@@ -28,30 +28,34 @@ class OutdatedSubState extends MusicBeatState
 		else
 		{
 			txt = new FlxText(0, 0, FlxG.width,
-				"Hello! \nThis mod utilizes shaders that may be of disturbance to some. \nIf you wish to disable these, \npress N, otherwise press Y. You can change this in options. \n Also, Supernovae and Glitch are not meant to be taken seriously and are not composed by me. \n Supernovae is by ArchWk, and Glitch is by The Boneyard.",
+				"Hello! \nThis mod utilizes shaders that may be of disturbance to some. \nIf you wish to disable these, \npress X, otherwise press B. You can change this in options. \n Also, Supernovae and Glitch are not meant to be taken seriously and are not composed by me. \n Supernovae is by ArchWk, and Glitch is by The Boneyard.",
 				32);
 		}
 		txt.setFormat("Comic Sans MS Bold", 32, FlxColor.WHITE, CENTER);
 		txt.screenCenter();
 		txt.antialiasing = true;
 		add(txt);
+
+		#if mobileC
+		addVirtualPad(NONE, A_B_X);
+		#end
 	}
 
 	override function update(elapsed:Float)
 	{
-		if (controls.PAUSE && FlxG.save.data.begin_thing == true)
+		if (controls.ACCEPT && FlxG.save.data.begin_thing == true)
 		{
 			leftState = true;
 			FlxG.switchState(new MainMenuState());
 		}
-		if (FlxG.keys.justPressed.Y && FlxG.save.data.begin_thing != true)
+		if (FlxG.keys.justPressed.B || _virtualpad.buttonB.justPressed && FlxG.save.data.begin_thing != true)
 		{
 			FlxG.save.data.begin_thing = true;
 			FlxG.save.data.eyesores = true;
 			leftState = true;
 			FlxG.switchState(new MainMenuState());
 		}
-		if (FlxG.keys.justPressed.N && FlxG.save.data.begin_thing != true)
+		if (FlxG.keys.justPressed.X || _virtualpad.buttonX.justPressed && FlxG.save.data.begin_thing != true)
 		{
 			FlxG.save.data.begin_thing = true;
 			FlxG.save.data.eyesores = false;

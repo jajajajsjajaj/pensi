@@ -31,6 +31,18 @@ class SaveDataHandler
 
 		if (FlxG.save.data.donoteclick == null)
 			FlxG.save.data.donoteclick = false;
+		
+		if (FlxG.save.data.chrome == null)
+		    FlxG.save.data.chrome = false;
+		
+		if (FlxG.save.data.scanline == null)
+		    FlxG.save.data.scanline = false;
+		
+		if (FlxG.save.data.tiltshift == null)
+		    FlxG.save.data.tiltshift = false;
+		
+		if (FlxG.save.data.hq2x == null)
+		    FlxG.save.data.hq2x = false;
 
 		if (FlxG.save.data.newInput != null && FlxG.save.data.lastversion == null)
 			FlxG.save.data.lastversion = "pre-beta2";

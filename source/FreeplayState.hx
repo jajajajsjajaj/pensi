@@ -88,6 +88,10 @@ class FreeplayState extends MusicBeatState
 
 		add(CurrentSongIcon);
 
+        #if mobileC
+		addVirtualPad(FULL, A_B);
+		#end
+
 		super.create();
 	}
 
@@ -159,7 +163,6 @@ class FreeplayState extends MusicBeatState
 
 		changeSelection();
 		changeDiff();
-
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String)
@@ -210,7 +213,6 @@ class FreeplayState extends MusicBeatState
 	{
 		super.update(elapsed);
 
-
 		if (!InMainFreeplayState) 
 		{
 			if (controls.LEFT_P)
@@ -232,7 +234,7 @@ class FreeplayState extends MusicBeatState
 					CurrentSongIcon.visible = false;
 					NameAlpha.visible = false;
 					GoToActualFreeplay();
-					InMainFreeplayState = true;
+					InMainFreeplayState = true;				
 					loadingPack = false;
 				});
 			}

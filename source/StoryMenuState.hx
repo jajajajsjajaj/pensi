@@ -259,6 +259,10 @@ class StoryMenuState extends MusicBeatState
 			imageBG.active = false;
 			add(imageBG);
 		}
+		
+		#if mobileC
+		addVirtualPad(FULL, A_B);
+		#end		
 	}
 
 	function FadeOut()

@@ -13,7 +13,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import io.newgrounds.NG;
+
 import lime.app.Application;
 #if desktop
 import Discord.DiscordClient;
@@ -151,6 +151,10 @@ class MainMenuState extends MusicBeatState
 
 		changeItem();
 
+		#if mobileC
+		addVirtualPad(UP_DOWN, A_B);
+		#end		
+
 		super.create();
 	}
 
@@ -236,6 +240,7 @@ class MainMenuState extends MusicBeatState
 		{
 			spr.screenCenter(X);
 		});
+		FlxG.save.flush();
 	}
 
 	override function beatHit()
