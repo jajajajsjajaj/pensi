@@ -635,7 +635,7 @@ class PlayState extends MusicBeatState
 		add(scoreTxt);
 
 		creditText = new FlxText(876, 530, 348);
-        creditText.text = 'PORTED BY\nM.A.JIGSAW AND SIROX';
+        creditText.text = '';
         creditText.setFormat(Paths.font("comic.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         creditText.scrollFactor.set();
         add(creditText);		
